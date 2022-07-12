@@ -1,17 +1,16 @@
-import React, {ChangeEvent, useState} from 'react';
-import style from './InputsComponent.module.css'
+import React from 'react';
 import {CommonInput} from '../../common/CommonInput';
+import {Box} from '@mui/material';
+import {ValueType} from '../../CommonCounter/CommonCounterComponent';
 
 type InputsComponentPropsType = {
-    maxValue: string
-    minValue: string
-    error: boolean
+    value: ValueType
     setNewMaxValue: (newMaxValue: string) => void
     setNewMinValue: (newMinValue: string) => void
-    setError: (error: boolean) => void
+    setError?: (error: boolean) => void
 }
 
-export const InputsComponent: React.FC<InputsComponentPropsType> = ({minValue, maxValue, setNewMaxValue, setNewMinValue, setError, error}) => {
+export const InputsComponent: React.FC<InputsComponentPropsType> = ({value, setNewMaxValue, setNewMinValue, setError}) => {
 
     const maxValueOnChangeHandler = (value: string) => {
         setNewMaxValue(value)
@@ -21,36 +20,31 @@ export const InputsComponent: React.FC<InputsComponentPropsType> = ({minValue, m
     }
 
     return (
-        // <div className={`${style.numArea} ${myClassName}`}>
-        <div className={style.inputArea}>
-            <div className={style.inputRow}>
-                <span>max value:</span>
-                {/*<MyInputComponent type={'number'} value={maxValue} onChange={maxValueOnChangeHandler}/>*/}
-                <CommonInput
-                    value={maxValue.toString()}
-                    onChange={maxValueOnChangeHandler}
-                    error={error}
-                    label={'max value'}
-                    variant={'outlined'}
-                    size={'small'}
-                    helperText={'type max value'}
-                    type={'number'}
-                />
-            </div>
-            <div className={style.inputRow}>
-                <span>start value:</span>
-                {/*<MyInputComponent type={'number'} value={startValue} onChange={startValueOnChangeHandler}/>*/}
-                <CommonInput
-                    value={minValue.toString()}
-                    onChange={minValueOnChangeHandler}
-                    error={error}
-                    label={'min value'}
-                    variant={'outlined'}
-                    size={'small'}
-                    helperText={'type min value'}
-                    type={'number'}
-                />
-            </div>
-        </div>
+        <Box sx={{p: '10px', border: '1px solid black', height: 'min-content', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+            <CommonInput
+                value={value.max.number.toString()}
+                onChange={maxValueOnChangeHandler}
+                error={value.max.error}
+                label={'max value'}
+                variant={'outlined'}
+                size={'small'}
+                // helperText={error ? 'incorrect input' : ''}
+                type={'number'}
+                margin={'none'}
+                sx={{m: '5px', width: '150px'}}
+            />
+            <CommonInput
+                value={value.min.number.toString()}
+                onChange={minValueOnChangeHandler}
+                error={value.min.error}
+                label={'min value'}
+                variant={'outlined'}
+                size={'small'}
+                // helperText={error ? 'incorrect input' : ''}
+                type={'number'}
+                margin={'none'}
+                sx={{m: '5px', width: '150px'}}
+            />
+        </Box>
     )
 }

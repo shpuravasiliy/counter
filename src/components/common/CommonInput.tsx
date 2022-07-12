@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
-import {TextField} from '@mui/material';
+import {SxProps, TextField, Theme} from '@mui/material';
 
 type CommonInputPropsType = {
     value: string
@@ -10,11 +10,13 @@ type CommonInputPropsType = {
     disabled?: boolean
     variant: 'filled' | 'outlined' | 'standard'
     size: 'medium' | 'small' | undefined
-    helperText: string
+    helperText?: string
     type: string
+    margin: 'dense' | 'none' | 'normal'
+    sx?: SxProps<Theme> | undefined
 }
 
-export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, error, onKeyDown, disabled, value, variant, size, helperText, type}) => {
+export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, error, onKeyDown, disabled, value, variant, size, helperText, type, sx, margin}) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.currentTarget && onChange(e.currentTarget.value);
     }
@@ -35,6 +37,8 @@ export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, er
                 size={size}
                 helperText={helperText}
                 type={type}
+                margin={margin}
+                sx={sx}
             />
         </>
     );

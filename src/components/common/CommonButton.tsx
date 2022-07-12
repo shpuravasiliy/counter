@@ -34,17 +34,17 @@ export const CommonButton: React.FC<CommonButtonPropsType> = ({setIcon, title, o
         switch (setIcon) {
             case 'AddCircleIcon':
                 return <AddCircleIcon
-                    color={iconColor}
+                    color={disabled ? 'inherit' : iconColor}
                     fontSize={iconSize}
                 />
             case 'CheckCircleIcon':
                 return <CheckCircleIcon
-                    color={iconColor}
+                    color={disabled ? 'inherit' : iconColor}
                     fontSize={iconSize}
                 />
             case 'RemoveCircleIcon':
                 return <RemoveCircleIcon
-                    color={iconColor}
+                    color={disabled ? 'inherit' : iconColor}
                     fontSize={iconSize}
                 />
             case 'RestartAltIcon':
@@ -57,8 +57,8 @@ export const CommonButton: React.FC<CommonButtonPropsType> = ({setIcon, title, o
     }
 
     return (
-        <Tooltip title={title}>
-            <IconButton onClick={onClick} disabled={disabled}>
+        <Tooltip title={title} >
+            <IconButton onClick={onClick} disabled={disabled} color={'success'}>
                 {iconType(setIcon)}
             </IconButton>
         </Tooltip>

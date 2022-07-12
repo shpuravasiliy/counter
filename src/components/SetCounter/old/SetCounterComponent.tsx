@@ -35,19 +35,19 @@ export const SetCounterComponent: React.FC<SetCounterComponentPropsType> = ({set
 
     return (
         <div className={style.main}>
-            <InputsComponent
-                maxValue={maxValue}
-                minValue={startValue}
-                setNewMinValue={setNewStartValueHandler}
-                setNewMaxValue={setNewMaxValueHandler}
-                setError={setErrorHandler}
-            />
-            <div className={style.btnArea}>
-                <MyButton
-                    onClick={onClickHandler}
-                    children={'set'}
-                />
-            </div>
+            {/*<InputsComponent*/}
+            {/*    maxValue={maxValue}*/}
+            {/*    minValue={startValue}*/}
+            {/*    setNewMinValue={setNewStartValueHandler}*/}
+            {/*    setNewMaxValue={setNewMaxValueHandler}*/}
+            {/*    setError={setErrorHandler}*/}
+            {/*/>*/}
+            {/*<div className={style.btnArea}>*/}
+            {/*    <MyButton*/}
+            {/*        onClick={onClickHandler}*/}
+            {/*        children={'set'}*/}
+            {/*    />*/}
+            {/*</div>*/}
         </div>
     )
 }

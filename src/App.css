@@ -1,4 +1,9 @@
+body {
+    background-color: rgba(41,44,53,0.6);
+}
+
 .App {
-    display: flex;
+    /*display: flex;*/
     margin: 25% auto;
+
 }
