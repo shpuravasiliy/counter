@@ -1,0 +1,15 @@
+.std {
+    background: rgba(99,217,251,1);
+    display: flex;
+    width: auto;
+    height: auto;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5%;
+    font-size: 18px;
+}
+
+.std:disabled {
+    background: darkgrey;
+}

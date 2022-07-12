@@ -1,0 +1,19 @@
+.numArea {
+    display: flex;
+    background-color: rgba(99,217,251,1);
+    border: 1px solid black;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 100px;
+    margin: 5px;
+    font-size: 48px;
+}
+.std {
+    color: black;
+}
+.isDone {
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,10 @@
+.std {
+    width: 50px;
+    height: auto;
+    background: rgba(99,217,251,0.6);
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}
