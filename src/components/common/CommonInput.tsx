@@ -5,6 +5,7 @@ type CommonInputPropsType = {
     value: string
     onChange: (value: string) => void
     onKeyDown?: () => void
+    onBlur?: () => void
     error: boolean
     label: string
     disabled?: boolean
@@ -14,14 +15,18 @@ type CommonInputPropsType = {
     type: string
     margin: 'dense' | 'none' | 'normal'
     sx?: SxProps<Theme> | undefined
+
 }
 
-export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, error, onKeyDown, disabled, value, variant, size, helperText, type, sx, margin}) => {
+export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, error, onKeyDown, disabled, value, variant, size, helperText, type, sx, margin, onBlur}) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.currentTarget && onChange(e.currentTarget.value);
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
         (onKeyDown && e && e.key === 'Enter') && onKeyDown();
+    }
+    const onBlurHandler = () => {
+        onBlur && onBlur();
     }
 
     return (
@@ -31,6 +36,7 @@ export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, er
                 variant={variant}
                 onChange={onChangeHandler}
                 onKeyDown={onKeyDownHandler}
+                onBlur={onBlurHandler}
                 label={label}
                 error={error}
                 disabled={disabled}

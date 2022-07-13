@@ -48,10 +48,10 @@ export const CountComponent = () => {
             className={style.main}
             onClick={onClickHandler}
         >
-            <NumComponent
-                num={num}
-                countIsDone={countIsDone}
-            />
+            {/*<NumComponent*/}
+            {/*    num={num}*/}
+            {/*    countIsDone={countIsDone}*/}
+            {/*/>*/}
             {showInput && <MyInputComponent
                 value={inputValue}
                 onChangeText={onChangeMaxHandler}

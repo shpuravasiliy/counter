@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import {IconButton, Tooltip} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -27,9 +27,20 @@ type CommonButtonPropsType = {
         | 'medium'
         | 'small'
         | undefined
+    onMouseDown?: (e: MouseEvent<HTMLButtonElement>) => void
+    onMouseUp?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export const CommonButton: React.FC<CommonButtonPropsType> = ({setIcon, title, onClick, iconColor, iconSize, disabled}) => {
+export const CommonButton: React.FC<CommonButtonPropsType> = ({
+                                                                  setIcon,
+                                                                  title,
+                                                                  onClick,
+                                                                  iconColor,
+                                                                  iconSize,
+                                                                  disabled,
+                                                                  onMouseDown,
+                                                                  onMouseUp
+                                                              }) => {
     const iconType = (setIcon: IconType) => {
         switch (setIcon) {
             case 'AddCircleIcon':
@@ -52,15 +63,24 @@ export const CommonButton: React.FC<CommonButtonPropsType> = ({setIcon, title, o
                     color={disabled ? 'inherit' : iconColor}
                     fontSize={iconSize}
                 />
-            default: return
+            default:
+                return
         }
     }
 
     return (
-        <Tooltip title={title} >
-            <IconButton onClick={onClick} disabled={disabled} color={'success'}>
+        <Tooltip title={title}>
+            <span>
+                <IconButton
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                onClick={onClick}
+                disabled={disabled}
+                color={'success'}
+            >
                 {iconType(setIcon)}
             </IconButton>
+            </span>
         </Tooltip>
     )
 }

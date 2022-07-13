@@ -7,7 +7,7 @@ type InputsComponentPropsType = {
     value: ValueType
     setNewMaxValue: (newMaxValue: string) => void
     setNewMinValue: (newMinValue: string) => void
-    setError?: (error: boolean) => void
+    setError?: ( type: 'min' | 'max') => void
 }
 
 export const InputsComponent: React.FC<InputsComponentPropsType> = ({value, setNewMaxValue, setNewMinValue, setError}) => {
@@ -25,25 +25,25 @@ export const InputsComponent: React.FC<InputsComponentPropsType> = ({value, setN
                 value={value.max.number.toString()}
                 onChange={maxValueOnChangeHandler}
                 error={value.max.error}
-                label={'max value'}
+                label={value.max.error ? 'wrong max value' : 'max value'}
                 variant={'outlined'}
                 size={'small'}
-                // helperText={error ? 'incorrect input' : ''}
                 type={'number'}
                 margin={'none'}
                 sx={{m: '5px', width: '150px'}}
+                onBlur={() => value.max.error && setError && setError('max')}
             />
             <CommonInput
                 value={value.min.number.toString()}
                 onChange={minValueOnChangeHandler}
                 error={value.min.error}
-                label={'min value'}
+                label={value.min.error ? 'wrong min value' : 'min value'}
                 variant={'outlined'}
                 size={'small'}
-                // helperText={error ? 'incorrect input' : ''}
                 type={'number'}
                 margin={'none'}
                 sx={{m: '5px', width: '150px'}}
+                onBlur={() => value.min.error && setError && setError('min')}
             />
         </Box>
     )

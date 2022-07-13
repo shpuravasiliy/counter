@@ -9,9 +9,10 @@ type SetCounterComponentPropsType = {
     setNewMaxValue: (newMaxValue: string) => void
     setNewMinValue: (newMinValue: string) => void
     onClickButton: () => void
+    setError?: ( type: 'min' | 'max') => void
 }
 
-export const SetCounterComponent: React.FC<SetCounterComponentPropsType> = ({value, setNewMaxValue, setNewMinValue, onClickButton}) => {
+export const SetCounterComponent: React.FC<SetCounterComponentPropsType> = ({value, setNewMaxValue, setNewMinValue, onClickButton, setError}) => {
 
     const commonError = value.max.error || value.min.error
 
@@ -27,6 +28,7 @@ export const SetCounterComponent: React.FC<SetCounterComponentPropsType> = ({val
                         value={value}
                         setNewMaxValue={setNewMaxValue}
                         setNewMinValue={setNewMinValue}
+                        setError={setError}
                     />
                 </Box>
                 <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', pt: '5%'}}>
@@ -35,7 +37,7 @@ export const SetCounterComponent: React.FC<SetCounterComponentPropsType> = ({val
                         title={'set'}
                         onClick={onClickHandler}
                         iconColor={'primary'}
-                        iconSize={'inherit'}
+                        iconSize={'large'}
                         disabled={commonError}
                     />
                 </Box>
