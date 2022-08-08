@@ -10,12 +10,12 @@ type SetCounterComponentPropsType = {
     onClickButton: () => void
 }
 
-export const SetCounterComponent: FC<SetCounterComponentPropsType> = ({onClickButton}) => {
+export const SetCounterComponent: FC<SetCounterComponentPropsType> = memo(({onClickButton}) => {
 
     const {min, max} = useSelector<rootReducerType, counterStateType>(state => state.state);
 
-    const commonError = max.error || min.error
-    console.log('SetCounterComponent')
+    const commonError = max.error || min.error;
+
     return (
         <Box>
             <Paper sx={{p: '5%'}}>
@@ -35,4 +35,4 @@ export const SetCounterComponent: FC<SetCounterComponentPropsType> = ({onClickBu
             </Paper>
         </Box>
     );
-};
+});
