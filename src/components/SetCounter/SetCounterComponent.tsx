@@ -1,41 +1,32 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import {Box, Paper} from '@mui/material';
 import {InputsComponent} from './old/InputsComponent';
 import {CommonButton} from '../common/CommonButton';
-import {ValueType} from '../CommonCounter/CommonCounterComponent';
+import {useSelector} from 'react-redux';
+import {counterStateType} from '../../store/counter-reducer';
+import {rootReducerType} from '../../store/store';
 
 type SetCounterComponentPropsType = {
-    value: ValueType
-    setNewMaxValue: (newMaxValue: string) => void
-    setNewMinValue: (newMinValue: string) => void
     onClickButton: () => void
-    setError?: ( type: 'min' | 'max') => void
 }
 
-export const SetCounterComponent: React.FC<SetCounterComponentPropsType> = ({value, setNewMaxValue, setNewMinValue, onClickButton, setError}) => {
+export const SetCounterComponent: FC<SetCounterComponentPropsType> = ({onClickButton}) => {
 
-    const commonError = value.max.error || value.min.error
+    const {min, max} = useSelector<rootReducerType, counterStateType>(state => state.state);
 
-    const onClickHandler = () => {
-        onClickButton();
-    }
-
+    const commonError = max.error || min.error
+    console.log('SetCounterComponent')
     return (
         <Box>
             <Paper sx={{p: '5%'}}>
                 <Box>
-                    <InputsComponent
-                        value={value}
-                        setNewMaxValue={setNewMaxValue}
-                        setNewMinValue={setNewMinValue}
-                        setError={setError}
-                    />
+                    <InputsComponent/>
                 </Box>
                 <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', pt: '5%'}}>
                     <CommonButton
                         setIcon={'CheckCircleIcon'}
                         title={'set'}
-                        onClick={onClickHandler}
+                        onClick={() => onClickButton()}
                         iconColor={'primary'}
                         iconSize={'large'}
                         disabled={commonError}

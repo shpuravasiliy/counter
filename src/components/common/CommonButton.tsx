@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, {memo, MouseEvent} from 'react';
 import {IconButton, Tooltip} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -31,7 +31,7 @@ type CommonButtonPropsType = {
     onMouseUp?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export const CommonButton: React.FC<CommonButtonPropsType> = ({
+export const CommonButton: React.FC<CommonButtonPropsType> = memo(({
                                                                   setIcon,
                                                                   title,
                                                                   onClick,
@@ -83,4 +83,4 @@ export const CommonButton: React.FC<CommonButtonPropsType> = ({
             </span>
         </Tooltip>
     )
-}
+})

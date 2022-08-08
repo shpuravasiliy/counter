@@ -1,8 +1,7 @@
-body {
-    background-color: rgba(41,44,53,0.6);
-}
-
 .App {
-    /*display: flex;*/
-    margin: 25% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(41,44,53,0.6);
 }

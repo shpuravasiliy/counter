@@ -1,61 +1,46 @@
-import React, {MouseEvent, useRef} from 'react';
+import React, {MouseEvent, useCallback, useRef} from 'react';
 import {Box, Paper} from '@mui/material';
 import {ValueType} from '../CommonCounter/CommonCounterComponent';
 import {NumComponent} from './old/NumComponent';
 import {CommonButton} from '../common/CommonButton';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeCounterStatusAC, counterStateType, resetValuesAC, setCurrentValueAC} from '../../store/counter-reducer';
+import {rootReducerType} from '../../store/store';
 
-type CounterComponentPropsType = {
-    value: ValueType
-    setCurrentNum: (newNum: number) => void
-    resetValue: () => void
-    changeStatus?: () => void
-}
+export const CounterComponent = () => {
 
-export const CounterComponent: React.FC<CounterComponentPropsType> = ({
-                                                                          value,
-                                                                          setCurrentNum,
-                                                                          resetValue,
-                                                                          changeStatus
-                                                                      }) => {
+    const {min, max, current, view, counterStatus} = useSelector<rootReducerType, counterStateType>(state => state.state)
+    const dispatch = useDispatch();
 
-    let timerRef = useRef<ReturnType<typeof setTimeout>>();
-    const countIsDone = value.current === value.max.setNumber;
+    const setCurrentValue = (newValue: string) => dispatch(setCurrentValueAC(newValue))
+    const resetValues = () => dispatch(resetValuesAC())
+    const changeCounterStatus = useCallback(() => {
+        dispatch(changeCounterStatusAC())
+    }, [dispatch]);
 
-    const incNum = () => {
-        const newNum = value.current + 1;
-        !countIsDone && setCurrentNum(newNum);
-    }
-    const resetNum = () => {
-        setCurrentNum(value.min.setNumber);
-    }
-    const onMouseDownHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const countIsDone = (current === max.setNumber);
+
+    const incNum = useCallback(() => {
+        const newNum = current + 1;
+        !countIsDone && setCurrentValue(newNum.toString())
+    }, [setCurrentValue, countIsDone, current]);
+    const resetNum = useCallback(() => {
+        setCurrentValue(min.setNumber.toString());
+    }, [setCurrentValue, min.setNumber]);
+    const onMouseDownHandler = useCallback(() => {
         timerRef.current = setTimeout(() => {
-            resetValue();
+            resetValues();
         }, 2000);
-    }
-    const onMouseUpHandler = () => {
+    }, [timerRef]);
+    const onMouseUpHandler = useCallback(() => {
         clearTimeout(timerRef.current)
-    }
-    const changeStatusHandler = () => {
-        changeStatus && changeStatus();
-    }
+    }, [timerRef]);
 
     return (
         <Box sx={{}}>
-            <Paper
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    p: '10px',
-                    height: '100%',
-                    boxSizing: 'border-box',
-                    gap: '10px'
-                }}
-            >
-                <NumComponent
-                    value={value}
-                    countIsDone={countIsDone}
-                />
+            <Paper sx={{display: 'flex', flexDirection: 'column', p: '10px', height: '100%', boxSizing: 'border-box', gap: '10px'}}>
+                <NumComponent countIsDone={countIsDone}/>
                 <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'stretch', height: 'auto'}}>
                     <CommonButton
                         setIcon={'AddCircleIcon'}
@@ -65,16 +50,13 @@ export const CounterComponent: React.FC<CounterComponentPropsType> = ({
                         iconSize={'large'}
                         disabled={countIsDone}
                     />
-                    {!value.view ?
-                        <CommonButton
+                    {!view && <CommonButton
                             setIcon={'CheckCircleIcon'}
-                            title={'inc'}
-                            onClick={changeStatusHandler}
+                            title={counterStatus ? 'set' : 'change status'}
+                            onClick={changeCounterStatus}
                             iconColor={'primary'}
                             iconSize={'large'}
                         />
-                        :
-                        ''
                     }
                     <CommonButton
                         setIcon={'RestartAltIcon'}
@@ -82,7 +64,7 @@ export const CounterComponent: React.FC<CounterComponentPropsType> = ({
                         onClick={resetNum}
                         iconColor={'secondary'}
                         iconSize={'large'}
-                        disabled={!value.current}
+                        disabled={!current}
                         onMouseDown={onMouseDownHandler}
                         onMouseUp={onMouseUpHandler}
                     />

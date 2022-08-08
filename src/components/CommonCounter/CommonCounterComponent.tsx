@@ -39,7 +39,7 @@ export const CommonCounterComponent = () => {
                 return numValue >= value.max.number ? setValue({
                     ...value,
                     min: {...value.min, error: true}
-                }) : setValue({...value, min: {...value.min, error: false, number: numValue}});
+                }) : setValue({...value, min: {...value.min, number: numValue, error: false}});
             case 'max':
                 return numValue <= value.min.number ? setValue({
                     ...value,
@@ -52,8 +52,8 @@ export const CommonCounterComponent = () => {
     const valueSetHandler = () => {
         setValue({
             ...value,
-            max: {...value.max, setNumber: value.max.number},
             min: {...value.min, setNumber: value.min.number},
+            max: {...value.max, setNumber: value.max.number},
             current: value.current < value.min.number ? value.min.number : value.current > value.max.number ? value.max.number : value.current
         })
     }
@@ -109,49 +109,49 @@ export const CommonCounterComponent = () => {
                     iconSize={'large'}
                 />
             </Box>
-            {value.view ?
-                <Box
-                    display={'flex'}
-                    justifyContent={'space-evenly'}
-                    width={'100%'}
-                >
-                    <SetCounterComponent
-                        value={value}
-                        setNewMaxValue={(value) => valueOnChangeHandler(value, 'max')}
-                        setNewMinValue={(value) => valueOnChangeHandler(value, 'min')}
-                        onClickButton={valueSetHandler}
-                        setError={setErrorHandler}
-                    />
-                    <CounterComponent
-                        value={value}
-                        setCurrentNum={currentValueSetHandler}
-                        resetValue={resetValueHandler}
-                    />
-                </Box>
-                :
-                <Box
-                    display={'flex'}
-                    justifyContent={'space-evenly'}
-                    width={'100%'}
-                >
-                    {value.counterStatus ?
-                        <SetCounterComponent
-                            value={value}
-                            setNewMaxValue={(value) => valueOnChangeHandler(value, 'max')}
-                            setNewMinValue={(value) => valueOnChangeHandler(value, 'min')}
-                            onClickButton={valueSetHandlerAnotherType}
-                            setError={setErrorHandler}
-                        />
-                        :
-                        <CounterComponent
-                            value={value}
-                            setCurrentNum={currentValueSetHandler}
-                            resetValue={resetValueHandler}
-                            changeStatus={changeStatusHandler}
-                        />
-                    }
-                </Box>
-            }
+            {/*{value.view ?*/}
+            {/*    <Box*/}
+            {/*        display={'flex'}*/}
+            {/*        justifyContent={'space-evenly'}*/}
+            {/*        width={'100%'}*/}
+            {/*    >*/}
+            {/*        <SetCounterComponent*/}
+            {/*            value={value}*/}
+            {/*            setNewMaxValue={(value) => valueOnChangeHandler(value, 'max')}*/}
+            {/*            setNewMinValue={(value) => valueOnChangeHandler(value, 'min')}*/}
+            {/*            onClickButton={valueSetHandler}*/}
+            {/*            setError={setErrorHandler}*/}
+            {/*        />*/}
+            {/*        <CounterComponent*/}
+            {/*            value={value}*/}
+            {/*            setCurrentNum={currentValueSetHandler}*/}
+            {/*            resetValue={resetValueHandler}*/}
+            {/*        />*/}
+            {/*    </Box>*/}
+            {/*    :*/}
+            {/*    <Box*/}
+            {/*        display={'flex'}*/}
+            {/*        justifyContent={'space-evenly'}*/}
+            {/*        width={'100%'}*/}
+            {/*    >*/}
+            {/*        {value.counterStatus ?*/}
+            {/*            <SetCounterComponent*/}
+            {/*                value={value}*/}
+            {/*                setNewMaxValue={(value) => valueOnChangeHandler(value, 'max')}*/}
+            {/*                setNewMinValue={(value) => valueOnChangeHandler(value, 'min')}*/}
+            {/*                onClickButton={valueSetHandlerAnotherType}*/}
+            {/*                setError={setErrorHandler}*/}
+            {/*            />*/}
+            {/*            :*/}
+            {/*            <CounterComponent*/}
+            {/*                value={value}*/}
+            {/*                setCurrentNum={currentValueSetHandler}*/}
+            {/*                resetValue={resetValueHandler}*/}
+            {/*                changeStatus={changeStatusHandler}*/}
+            {/*            />*/}
+            {/*        }*/}
+            {/*    </Box>*/}
+            {/*}*/}
         </Box>
     );
 };

@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Box} from '@mui/material';
-import {ValueType} from '../../CommonCounter/CommonCounterComponent';
+import {useSelector} from 'react-redux';
+import {counterStateType} from '../../../store/counter-reducer';
+import {rootReducerType} from '../../../store/store';
 
-type NumComponentPropsType = {
-    value: ValueType
-    countIsDone: boolean
-}
+export const NumComponent = memo((props: {countIsDone: boolean}) => {
 
-export const NumComponent: React.FC<NumComponentPropsType> = ({value, countIsDone}) => {
-    const commonError = value.max.error || value.min.error;
-    const title = value.max.error ? 'wrong max value' : value.min.error ? 'wrong min value' : value.current;
+    const {min, max, current} = useSelector<rootReducerType, counterStateType>(state => state.state)
+
+    const commonError = max.error || min.error;
+    const title = max.error ? 'wrong max value' : min.error ? 'wrong min value' : current;
+
     return (
         <Box
-            color={countIsDone || commonError ? 'red' : 'inherit'}
+            color={props.countIsDone || commonError ? 'red' : 'inherit'}
             sx={{
                 width: '150px',
                 height: '100px',
@@ -20,11 +21,11 @@ export const NumComponent: React.FC<NumComponentPropsType> = ({value, countIsDon
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                fontSize: value.max.error || value.min.error ? '24px' : '64px',
+                fontSize: max.error || min.error ? '24px' : '64px',
                 textAlign: 'center'
             }}
         >
             {title}
         </Box>
     )
-}
+})

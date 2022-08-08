@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo} from 'react';
 import {SxProps, TextField, Theme} from '@mui/material';
 
 type CommonInputPropsType = {
@@ -18,7 +18,7 @@ type CommonInputPropsType = {
 
 }
 
-export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, error, onKeyDown, disabled, value, variant, size, helperText, type, sx, margin, onBlur}) => {
+export const CommonInput: React.FC<CommonInputPropsType> = memo(({onChange, label, error, onKeyDown, disabled, value, variant, size, helperText, type, sx, margin, onBlur}) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.currentTarget && onChange(e.currentTarget.value);
     }
@@ -48,4 +48,4 @@ export const CommonInput: React.FC<CommonInputPropsType> = ({onChange, label, er
             />
         </>
     );
-};
+});
